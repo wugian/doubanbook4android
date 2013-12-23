@@ -1,11 +1,8 @@
 package com.study.doubanbook_for_android.activity;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,9 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.study.doubanbook_for_android.R;
-import com.study.doubanbook_for_android.api.NetUtils;
-import com.study.doubanbook_for_android.auth.Douban;
-import com.study.doubanbook_for_android.auth.SimpleDoubanOAuthListener;
 import com.study.doubanbook_for_android.business.DoubanBusiness;
 
 public class SerchInputActivity extends BaseActivity {

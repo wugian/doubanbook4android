@@ -47,6 +47,20 @@ public class BaseActivity extends Activity {
 		return tv.getText().toString().trim();
 	}
 
+	boolean notZero(int k) {
+		if (k != 0)
+			return true;
+		else
+			return false;
+	}
+
+	boolean notNull(String k) {
+		if (k != null)
+			return true;
+		else
+			return false;
+	}
+
 	void showToast(String msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 	}

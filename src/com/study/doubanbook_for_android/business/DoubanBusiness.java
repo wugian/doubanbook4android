@@ -161,7 +161,7 @@ public class DoubanBusiness {
 	 * @param callback
 	 */
 	//TODO NEED TEST when success show toast
-	public void collectBook(final String bookid,final CollectBookMsg collectmsg, final int start,
+	public void collectBook(final String bookid,final CollectBookMsg collectmsg,
 			final AsynCallback<CollectSuccessResult> callback) {
 		new Thread() {
 			public void run() {

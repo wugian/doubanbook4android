@@ -1,25 +1,21 @@
 package com.study.doubanbook_for_android.activity;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.study.doubanbook_for_android.R;
-import com.study.doubanbook_for_android.adapter.BookAdapter;
-import com.study.doubanbook_for_android.adapter.UserListAdapter;
-import com.study.doubanbook_for_android.api.WrongMsg;
-import com.study.doubanbook_for_android.business.DoubanBusiness;
-import com.study.doubanbook_for_android.callback.AsynCallback;
-import com.study.doubanbook_for_android.model.AuthorUser;
-import com.study.doubanbook_for_android.model.BookItem;
-import com.study.doubanbook_for_android.model.GeneralResult;
-import com.study.doubanbook_for_android.model.GeneralUserResult;
-
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor.AutoCloseInputStream;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.study.doubanbook_for_android.R;
+import com.study.doubanbook_for_android.adapter.UserListAdapter;
+import com.study.doubanbook_for_android.api.WrongMsg;
+import com.study.doubanbook_for_android.business.DoubanBusiness;
+import com.study.doubanbook_for_android.callback.AsynCallback;
+import com.study.doubanbook_for_android.model.AuthorUser;
+import com.study.doubanbook_for_android.model.GeneralUserResult;
 
 public class UserListActivity extends BaseP2RActivity<AuthorUser> {
 
@@ -96,7 +92,6 @@ public class UserListActivity extends BaseP2RActivity<AuthorUser> {
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("userDetail", dataList.get(position - 1));
 		intent.putExtras(bundle);
-
 		startActivity(intent);
 	}
 }

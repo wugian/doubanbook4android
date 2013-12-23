@@ -1,8 +1,5 @@
 package com.study.doubanbook_for_android.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,8 +18,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.study.doubanbook_for_android.R;
-import com.study.doubanbook_for_android.api.NetUtils;
+import com.study.doubanbook_for_android.api.WrongMsg;
+import com.study.doubanbook_for_android.business.DoubanBusiness;
+import com.study.doubanbook_for_android.callback.AsynCallback;
 import com.study.doubanbook_for_android.model.BookItem;
+import com.study.doubanbook_for_android.model.CollectBookMsg;
+import com.study.doubanbook_for_android.model.CollectSuccessResult;
 
 public class BookDetailActivity extends BaseActivity {
 	ImageView bookImg;
@@ -36,7 +37,6 @@ public class BookDetailActivity extends BaseActivity {
 	TextView grade;
 	Button comment;
 	private String bookid;
-	private Button collect_btn;
 	private Button wish;
 	private Button reading;
 	private Button done;
@@ -72,32 +72,51 @@ public class BookDetailActivity extends BaseActivity {
 		Button ok_btn = (Button) view.findViewById(R.id.ok_btn);
 
 		ok_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				int k = ratingBar_rb.getRight();
+				int rating = (int) ratingBar_rb.getRating();
 				String s = getText(tag_et);
-				String ss = getText(comment_et);
-				System.out.println(k + " ," + s + " ," + ss);
-				// dissmissPop();
-				// collectBook(k, s, ss);
+				String comment = getText(comment_et);
+				System.out.println(rating + " ," + s + " ," + comment);
+				dissmissPop();
+				collectBook(rating, s, comment);
 			}
 		});
 		cancle_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				dissmissPop();
 			}
 		});
-
 		/* 点其他地方可消失 */
 		popwindow.setFocusable(true);
 		popwindow.setBackgroundDrawable(new BitmapDrawable());
 	}
 
-	protected void collectBook(int k, String s, String ss) {
-		// TODO Auto-generated method stub
+	protected void collectBook(int rating, String title, String comment) {
+		CollectBookMsg collectBookMsg = new CollectBookMsg();
+		collectBookMsg.setStatus("done");
+		if (notZero(rating))
+			collectBookMsg.setRating(rating);
+		if (notNull(title))
+			collectBookMsg.setTags(title);
+		if (notNull(comment))
+			collectBookMsg.setComment(comment);
+		DoubanBusiness doubanBusiness = new DoubanBusiness(this);
+		doubanBusiness.collectBook(bookid, collectBookMsg,
+				new AsynCallback<CollectSuccessResult>() {
+					@Override
+					public void onSuccess(CollectSuccessResult data) {
+						super.onSuccess(data);
+						System.out.println(data.toString());
+					}
+
+					@Override
+					public void onFailure(WrongMsg caught) {
+						super.onFailure(caught);
+						System.out.println(caught.toString());
+					}
+				});
 
 	}
 
@@ -126,10 +145,9 @@ public class BookDetailActivity extends BaseActivity {
 		publisher = (TextView) findViewById(R.id.bookPublisher_tv);
 		grade = (TextView) findViewById(R.id.bookGrade_tv);
 		comment = (Button) findViewById(R.id.comment_btn);
-		collect_btn = (Button) findViewById(R.id.collect_btn);
 		wish = (Button) findViewById(R.id.wish_btn);
 		reading = (Button) findViewById(R.id.reading_btn);
-		done = (Button) findViewById(R.id.done_btn);
+		done = (Button) findViewById(R.id.read_btn);
 	}
 
 	@Override
